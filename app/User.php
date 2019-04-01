@@ -12,7 +12,7 @@ class User extends Authenticatable
 
     public function company()
     {
-        return $this->hasMany(Company::class, 'user_id');
+        return $this->hasMany(Company::class);
     }
 
     /**
