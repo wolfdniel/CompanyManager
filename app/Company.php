@@ -3,12 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Company extends Model
 {
     public function user()
     {
-        return $this->hasOne(User::class, 'user');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function employee()
