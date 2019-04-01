@@ -8,7 +8,7 @@ class Employee extends Model
 {
     public function company()
     {
-        return $this->hasMany(Employee::class, 'company');
+        return $this->belongsTo(Company::class);
     }
 
     protected $fillable = [

@@ -29,15 +29,12 @@ class CompanyController extends Controller
         $user = User::find(Auth::id());
         $company->user()->associate($user);
         $company->save();
-
-        /*$user = Auth::find($request->get('id'));
-        $company->user()->associate($user);
-        $company->save();*/
         return redirect(route('companies.index'));
     }
 
     public function show(Company $company)
     {
+        //dd($company);
         return view('companies.show', compact('company'));
     }
 }

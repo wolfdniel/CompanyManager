@@ -14,7 +14,7 @@ class Company extends Model
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class, 'company');
+        return $this->hasMany(Employee::class);
     }
 
     protected $fillable = [

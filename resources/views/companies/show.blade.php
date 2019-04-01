@@ -2,6 +2,7 @@
 
 @section('content')
     <h1>{{ ctype_upper($company->name) }}</h1>
+    <a href="{{ route('employees.create', $company->id) }}">New employee</a>
 
     <div>
         <ul>
@@ -16,15 +17,15 @@
             <tr>
                 <th>Employees</th>
             </tr>
+            @foreach($company->employee as $employee)
             <tr>
-                @foreach($company->employee() as $employee)
-                    <td>
-                        $employee->name;
-                    </td>
-                @endforeach
+                <td>
+                    <a href="{{ route('employees.edit',[$company->id, $employee->id]) }}">
+                        {{ $employee->name }}
+                    </a>
+                </td>
             </tr>
+            @endforeach
         </table>
     </div>
-
-    <a href=""></a>
 @endsection
