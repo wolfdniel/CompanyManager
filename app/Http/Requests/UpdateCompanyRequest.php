@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Company;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateCompanyRequest extends FormRequest
 {
@@ -15,7 +15,8 @@ class UpdateCompanyRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $company = Company::find($this->route('company'))->first();
+        return Auth::user()->can('update', $company);
     }
 
     /**

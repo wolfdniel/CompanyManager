@@ -29,7 +29,6 @@ class CompanyController extends Controller
         $company->user()->associate($user);
         $company->save();
 
-        $this->authorize('update', $company);
         return redirect(route('companies.index'));
     }
 
@@ -51,15 +50,14 @@ class CompanyController extends Controller
         $company->user()->associate($user);
         $company->save();
 
-        $this->authorize('update', $company);
         return redirect(route('companies.show', $company->id));
     }
 
     public function destroy(Company $company)
     {
-        $company->delete();
         $this->authorize('update', $company);
 
+        $company->delete();
         return redirect(route('companies.index'));
     }
 }

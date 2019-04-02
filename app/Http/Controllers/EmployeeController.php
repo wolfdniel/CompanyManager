@@ -19,9 +19,6 @@ class EmployeeController extends Controller
     public function store(StoreEmployeeRequest $request, Company $company)
     {
         /** @var Company $tmp*/
-        //VALIDÁLNI!!!
-        $this->authorize('update', $company);
-
         $employee = Employee::create($request->only('name', 'email', 'phone'));
         $tmp = Company::find($request->get('company_id'));
         $employee->company()->associate($tmp);
@@ -40,9 +37,6 @@ class EmployeeController extends Controller
         Employee $employee)
     {
         /** @var Company $tmp*/
-        //VALIDÁLNI!!!
-        $this->authorize('update', $company);
-
         $employee->update($request->only('name', 'email', 'phone'));
         $tmp = Company::find($request->get('company_id'));
         $employee->company()->associate($tmp);
