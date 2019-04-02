@@ -42,7 +42,6 @@ class CompanyPolicy
      */
     public function update(User $user, Company $company)
     {
-        //dd($user->id == $company->user_id);
         return $user->id == $company->user_id;
     }
 
