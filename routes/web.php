@@ -32,3 +32,5 @@ Route::get('companies/{company}/employees/{employee}/edit',
     'EmployeeController@edit')->name('employees.edit');
 Route::patch('/companies/{company}/employees/{employee}',
     'EmployeeController@update')->name('employees.update');
+Route::delete('/companies/{company}/employees/{employee}',
+    'EmployeeController@destroy')->name('employees.destroy');

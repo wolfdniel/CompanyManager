@@ -5,40 +5,49 @@ namespace App\Http\Controllers;
 use App\Company;
 use App\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
 {
     public function create(Company $company)
     {
-        return view('employees.create', compact('company'));
+        $myCompanies = Company::where('user_id', Auth::id())->get();
+        return view('employees.create', compact('company', 'myCompanies'));
     }
 
     public function store(Request $request, Company $company)
     {
+        /** @var Company $tmp*/
         //VALIDÁLNI!!!
-        $employee = Employee::create($request->only('name', 'email', 'phone'));
-        $employee->company()->associate($company);
-        $employee->save();
 
+        $employee = Employee::create($request->only('name', 'email', 'phone'));
+        $tmp = Company::find($request->get('company_id'));
+        $employee->company()->associate($tmp);
+        $employee->save();
         return redirect(route('companies.show', $company->id));
     }
 
     public function edit(Company $company, Employee $employee)
     {
+        $myCompanies = Company::where('user_id', Auth::id())->get();
         //itt nem akarom $company-t, de különben stringet kap, Employee típus helyett
-        return view('employees.edit', compact('employee'));
+        return view('employees.edit', compact('employee','myCompanies'));
     }
 
     public function update(Request $request, Company $company, Employee $employee)
     {
+        /** @var Company $tmp*/
         //VALIDÁLNI!!!
         $employee->update($request->only('name', 'email', 'phone'));
-        return redirect(route('companies.show',
-            [$company->id, $employee->id]));
+        $tmp = Company::find($request->get('company_id'));
+        $employee->company()->associate($tmp);
+        $employee->save();
+        return redirect(route('companies.show', $company->id));
     }
 
-    public function destroy()
+    public function destroy(Company $company, Employee $employee)
     {
-        //
+        $employee->delete();
+        return redirect(route('companies.show', $company->id));
     }
 }

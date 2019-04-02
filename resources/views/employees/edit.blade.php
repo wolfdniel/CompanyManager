@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <body>
+    <div>
     <form method="post" action="{{ route('employees.update',
     [$employee->company_id, $employee->id]) }}">
         {{ csrf_field() }}
@@ -21,7 +21,32 @@
             <input type="tel" name="phone" value="{{ $employee->phone }}">
         </div>
 
+        <div>
+            <label for="company_id">Company</label>
+            <select name="company_id">
+                @foreach($myCompanies as $myCompany)
+                    @if($employee->company_id == $myCompany->id)
+                        <option value="{{ $myCompany->id }}" selected>
+                            {{ $myCompany->name }}
+                        </option>
+                    @else
+                        <option value="{{ $myCompany->id }}">
+                            {{ $myCompany->name }}
+                        </option>
+                    @endif
+                @endforeach
+            </select>
+        </div>
+
         <button>Save</button>
     </form>
-    </body>
+
+    <form method="post" action="{{ route('employees.destroy',
+    [$employee->company_id, $employee->id]) }}">
+        {{ method_field('DELETE') }}
+        {{ csrf_field() }}
+
+        <button>Delete</button>
+    </form>
+    </div>
 @endsection

@@ -19,6 +19,23 @@
                 <input type="tel" name="phone" value="{{ old('phone') }}">
             </div>
 
+            <div>
+                <label for="company_id">Company</label>
+                <select name="company_id" required>
+                    @foreach($myCompanies as $myCompany)
+                        @if($myCompany->id == $company->id)
+                            <option value="{{ $myCompany->id }}" selected>
+                                {{ $myCompany->name }}
+                            </option>
+                        @else
+                            <option value="{{ $myCompany->id }}">
+                                {{ $myCompany->name }}
+                            </option>
+                        @endif
+                    @endforeach
+                </select>
+            </div>
+
             <button>Save</button>
         </form>
     </body>
