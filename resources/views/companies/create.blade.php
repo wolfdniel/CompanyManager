@@ -18,7 +18,7 @@
 
             <div>
                 <label for="logo">Logo</label>
-                <input type="file" name="logo">
+                <input type="file" name="logo" value="{{ old('logo') }}">
             </div>
 
             <div>

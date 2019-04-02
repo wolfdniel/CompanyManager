@@ -2,6 +2,8 @@
 
 @section('content')
     <h1>{{ ctype_upper($company->name) }}</h1>
+    <a href="{{ route('companies.edit', $company->id) }}">Edit company</a>
+    <br>
     <a href="{{ route('employees.create', $company->id) }}">New employee</a>
 
     <div>
