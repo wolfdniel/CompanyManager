@@ -6,6 +6,7 @@ use App\Company;
 use App\Employee;
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
@@ -16,10 +17,11 @@ class EmployeeController extends Controller
         return view('employees.create', compact('company', 'myCompanies'));
     }
 
-    public function store(StoreEmployeeRequest $request, Company $company)
+    public function store(Request $request, Company $company)
     {
         /** @var Company $tmp*/
         //VALIDÁLNI!!!
+        $this->authorize('update', $company);
 
         $employee = Employee::create($request->only('name', 'email', 'phone'));
         $tmp = Company::find($request->get('company_id'));
@@ -40,6 +42,8 @@ class EmployeeController extends Controller
     {
         /** @var Company $tmp*/
         //VALIDÁLNI!!!
+        $this->authorize('update', $company);
+
         $employee->update($request->only('name', 'email', 'phone'));
         $tmp = Company::find($request->get('company_id'));
         $employee->company()->associate($tmp);
@@ -49,6 +53,8 @@ class EmployeeController extends Controller
 
     public function destroy(Company $company, Employee $employee)
     {
+        $this->authorize('update', $company);
+
         $employee->delete();
         return redirect(route('companies.show', $company->id));
     }

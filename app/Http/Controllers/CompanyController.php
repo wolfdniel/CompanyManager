@@ -26,15 +26,16 @@ class CompanyController extends Controller
     {
         /** @var Company $company */
         $company = Company::create($request->only('name', 'city', 'logo', 'website'));
-        $user = User::find(Auth::id());
+        $user = Auth::user();
         $company->user()->associate($user);
         $company->save();
+
+        $this->authorize('update', $company);
         return redirect(route('companies.index'));
     }
 
     public function show(Company $company)
     {
-        //dd($company);
         return view('companies.show', compact('company'));
     }
 }
