@@ -12,7 +12,7 @@ class EmployeeController extends Controller
 {
     public function create(Company $company)
     {
-        $myCompanies = Company::where('user_id', Auth::id())->get();
+        $myCompanies = Auth::user()->companies;
         return view('employees.create', compact('company', 'myCompanies'));
     }
 
@@ -28,8 +28,7 @@ class EmployeeController extends Controller
 
     public function edit(Company $company, Employee $employee)
     {
-        $myCompanies = Company::where('user_id', Auth::id())->get();
-        //itt nem akarom $company-t, de különben stringet kap, Employee típus helyett
+        $myCompanies = Auth::user()->companies;
         return view('employees.edit', compact('employee','myCompanies'));
     }
 

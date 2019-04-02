@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 
 class Company extends Model
 {
@@ -12,7 +11,7 @@ class Company extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function employee()
+    public function employees()
     {
         return $this->hasMany(Employee::class);
     }

@@ -10,7 +10,7 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    public function company()
+    public function companies()
     {
         return $this->hasMany(Company::class);
     }

@@ -19,7 +19,7 @@
             <tr>
                 <th>Employees</th>
             </tr>
-            @foreach($company->employee as $employee)
+            @foreach($company->employees as $employee)
             <tr>
                 <td>
                     <a href="{{ route('employees.edit',[$company->id, $employee->id]) }}">
