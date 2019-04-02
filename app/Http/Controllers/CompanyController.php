@@ -5,14 +5,13 @@ namespace App\Http\Controllers;
 use App\Company;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CompanyController extends Controller
 {
     public function index()
     {
-        $companies = Company::paginate(2);
+        $companies = Company::paginate(5);
         return view('companies.index', compact('companies'));
     }
 

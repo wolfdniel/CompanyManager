@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-
-use App\Company;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,7 +9,7 @@ class StoreEmployeeRequest extends FormRequest
 {
     public function authorize()
     {
-        $company = Company::find($this->route('company'))->first();
+        $company = $this->route('company');
         return Auth::user()->can('update', $company);
     }
 

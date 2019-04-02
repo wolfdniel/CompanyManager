@@ -15,11 +15,6 @@ class User extends Authenticatable
         return $this->hasMany(Company::class);
     }
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'name', 'email', 'password',
     ];

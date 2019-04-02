@@ -22,4 +22,11 @@ class Company extends Model
         'logo',
         'website'
     ];
+
+    protected $hidden = [
+        'id',
+        'created_at',
+        'updated_at',
+        'user_id'
+    ];
 }
