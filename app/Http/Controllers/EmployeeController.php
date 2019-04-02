@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use App\Employee;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreEmployeeRequest;
+use App\Http\Requests\UpdateEmployeeRequest;
 use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
@@ -15,7 +16,7 @@ class EmployeeController extends Controller
         return view('employees.create', compact('company', 'myCompanies'));
     }
 
-    public function store(Request $request, Company $company)
+    public function store(StoreEmployeeRequest $request, Company $company)
     {
         /** @var Company $tmp*/
         //VALIDÁLNI!!!
@@ -34,7 +35,8 @@ class EmployeeController extends Controller
         return view('employees.edit', compact('employee','myCompanies'));
     }
 
-    public function update(Request $request, Company $company, Employee $employee)
+    public function update(UpdateEmployeeRequest $request, Company $company,
+        Employee $employee)
     {
         /** @var Company $tmp*/
         //VALIDÁLNI!!!
