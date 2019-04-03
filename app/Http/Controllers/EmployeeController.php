@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function create(Company $company)
     {
         $myCompanies = Auth::user()->companies;
