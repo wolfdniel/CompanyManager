@@ -8,7 +8,7 @@
                     <div class="card-header">{{ __('Edit company') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('companies.update', $company->id) }}">
+                        <form method="POST" action="{{ route('companies.update', $company->id) }}" enctype="multipart/form-data">
                             @method('PATCH')
                             @csrf
 

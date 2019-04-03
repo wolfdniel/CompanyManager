@@ -6,6 +6,7 @@ use App\Company;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class CompanyController extends Controller
 {
@@ -28,7 +29,13 @@ class CompanyController extends Controller
     public function store(StoreCompanyRequest $request)
     {
         /** @var Company $company */
-        $company = Company::create($request->only('name', 'city', 'logo', 'website'));
+        $company = Company::create($request->only('name', 'city', 'website'));
+
+        if($request->hasFile('logo')){
+            $logo = $request->file('logo')->store('logos');
+            $company->logo = $logo;
+        }
+
         $user = Auth::user();
         $company->user()->associate($user);
         $company->save();
@@ -49,7 +56,14 @@ class CompanyController extends Controller
     public function update(UpdateCompanyRequest $request, Company $company)
     {
         /** @var Company $company */
-        $company->update($request->only('name', 'city', 'logo', 'website'));
+        $company->update($request->only('name', 'city', 'website'));
+
+        if($request->hasFile('logo')){
+            Storage::delete($company->logo);
+            $logo = $request->file('logo')->store('logos');
+            $company->logo = $logo;
+        }
+
         $user = Auth::user();
         $company->user()->associate($user);
         $company->save();
@@ -61,6 +75,7 @@ class CompanyController extends Controller
     {
         $this->authorize('update', $company);
 
+        Storage::delete($company->logo);
         $company->delete();
         return redirect(route('companies.index'));
     }

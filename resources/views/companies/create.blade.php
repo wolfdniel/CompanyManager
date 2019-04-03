@@ -8,7 +8,7 @@
                     <div class="card-header">{{ __('New company') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('companies.index') }}">
+                        <form method="POST" action="{{ route('companies.index') }}" enctype="multipart/form-data">
                             @csrf
 
                             <div class="form-group row">
