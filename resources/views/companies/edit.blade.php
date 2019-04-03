@@ -5,10 +5,10 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('New company') }}</div>
+                    <div class="card-header">{{ __('Edit company') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('companies.index') }}">
+                        <form method="POST" action="{{ route('companies.update', $company->id) }}">
                             @method('PATCH')
                             @csrf
 
@@ -16,7 +16,7 @@
                                 <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+                                    <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ $company->name }}" required autofocus>
 
                                     @if ($errors->has('name'))
                                         <span class="invalid-feedback" role="alert">
@@ -30,7 +30,7 @@
                                 <label for="city" class="col-md-4 col-form-label text-md-right">{{ __('City') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="city" type="text" class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }}" name="city" value="{{ old('city') }}" required>
+                                    <input id="city" type="text" class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }}" name="city" value="{{ $company->city }}" required>
 
                                     @if ($errors->has('city'))
                                         <span class="invalid-feedback" role="alert">
@@ -44,7 +44,7 @@
                                 <label for="logo" class="col-md-4 col-form-label text-md-right">{{ __('Logo') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="logo" type="file" class="form-control{{ $errors->has('logo') ? ' is-invalid' : '' }}" name="logo" value="{{ old('logo') }}">
+                                    <input id="logo" type="file" class="form-control{{ $errors->has('logo') ? ' is-invalid' : '' }}" name="logo" value="{{ $company->logo }}">
 
                                     @if ($errors->has('logo'))
                                         <span class="invalid-feedback" role="alert">
@@ -58,7 +58,7 @@
                                 <label for="website" class="col-md-4 col-form-label text-md-right">{{ __('Website') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="website" type="text" class="form-control{{ $errors->has('website') ? ' is-invalid' : '' }}" name="website" value="{{ old('website') }}">
+                                    <input id="website" type="text" class="form-control{{ $errors->has('website') ? ' is-invalid' : '' }}" name="website" value="{{ $company->website }}">
 
                                     @if ($errors->has('website'))
                                         <span class="invalid-feedback" role="alert">
@@ -71,7 +71,20 @@
                             <div class="form-group row mb-0">
                                 <div class="col-md-8 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Create') }}
+                                        {{ __('Save') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <form method="POST" action="{{ route('companies.destroy', $company->id) }}">
+                            {{ method_field('DELETE') }}
+                            {{ csrf_field() }}
+
+                            <div class="form-group row mb-1">
+                                <div class="col-md-8 offset-md-4 ">
+                                    <button type="submit" class="btn btn-secondary">
+                                        {{ __('Delete') }}
                                     </button>
                                 </div>
                             </div>
